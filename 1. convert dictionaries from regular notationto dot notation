@@ -1,0 +1,34 @@
+def dict_transfrom(dict1):
+    #step1: use recursive method to get every sub_value of dict1
+    dict_new = {}
+    
+    #define recursive function
+    def func1(dict1):
+        for i in dict1.keys():
+            if type(dict1[i]) == dict:
+                func1(dict1[i])
+            else:
+                dict_new[i] = dict1[i]
+    #begin recursive and store the daya in dict_new
+    func1(dict1)
+    #Now dict_new has all the sub_value of dict1, but the key_name is not qualified.
+    
+    #step2:update the dictionary key name
+    namelist = list(dict_new.keys())
+    namelist_new = []
+    for i in range(len(namelist)):
+        temp = namelist[i]
+        total = temp
+        while ('-' in temp):
+            temp = temp[::-1][(temp[::-1].index('-')+1):][::-1]
+            total  = temp+ '.'+total
+        namelist_new.append(total)
+    
+    #step3: eate a new dictionary and combine new dict_key_name and old dict_key_value.
+    dict_final = {}
+    for i in range(len(dict_new.keys())):
+        dict_final[namelist_new[i]] =list(dict_new.values())[i]
+    return dict_final
+    
+    
+   
